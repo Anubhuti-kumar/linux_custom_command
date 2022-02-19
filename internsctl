@@ -1,0 +1,40 @@
+#!/bin/bash
+if [ "$1"  == "cpu" ] && [ "$2"  == "getinfo" ]
+then
+	lscpu
+
+elif [ "$1"  == "memory" ] && [ "$2"  == "getinfo" ]
+then
+	free
+	
+elif [ "$1" == "user" ] && [ "$2" == "list" ] && [ "$3" == "--sudo-only" ]
+then 
+	getent group sudo
+	
+elif [ "$1" == "user" ] && [ "$2" == "create" ] && [ "$3" ]
+then
+	useradd "$3"
+
+elif [ "$1" == "user" ] && [ "$2" == "list" ]
+then 
+	getent passwd 
+
+elif [ "$1" == "file" ] && [ "$2" == "getinfo" ] && [ "$3" ]
+then 
+echo "Filename: $(ls -l "$3" | awk '{print $9}')"  
+echo "Access  : $(ls -l "$3" | awk '{print $1}')"
+echo "Size    : $(du -sh $3  | awk '{print $1}')"
+echo "Owner   : $(ls -l "$3" | awk '{print $4}')"
+elif [ "$1"  == "--version" ]
+then 
+	echo "Version is : v0.1.0"
+
+else [ "$1"  == " -- help" ]
+	echo "internsctl [OPTION]"
+	echo "--version  -->To check the version of the command"
+	echo "memory getinfo   -->To get memory information"
+	echo "user create <username>  -->To create a new user"
+	echo " user list  --> To check the user present on the server"
+	echo " user list --sudo-only  --> To check  the user with the sudo permission"
+	echo "file getinfo <file-name>  -->To get info about a file"
+fi
