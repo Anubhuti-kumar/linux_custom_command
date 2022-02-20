@@ -2,6 +2,7 @@
 This program is designed to create custom command using bash scripting.
 
 //To get available commands
+
 internsctl --help            
 
 //This command is designed to get get info about cpu usage.              
