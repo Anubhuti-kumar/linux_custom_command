@@ -42,6 +42,7 @@ internsctl file getInfo --owner <fileName>
 internsctl file getInfo --last-modififed <fileName> 
 
 .....................................................................
+  
 //TO push the changes to github repository.
 
 //To add all updated file
