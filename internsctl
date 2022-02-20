@@ -49,12 +49,17 @@ then
 
 else [ "$1"  == "--help" ]
 	echo "internsctl [OPTION]"
-	echo "--version  -->To check the version of the command"
-	echo "memory getinfo   -->To get memory information"
-	echo "user create <username>  -->To create a new user"
-	echo " user list  --> To check the user present on the server"
-	echo " user list --sudo-only  --> To check  the user with the sudo permission"
-	echo "file getinfo <file-name>  -->To get info about a file"
-    
+	echo "--version                                    [To check the version of the command]"
+	echo "memory getinfo                               [To get memory information]"
+	echo "user create <username>                       [To create a new user]"
+	echo "user list                                    [To check the user present on the server]"
+	echo "user list --sudo-only                        [To check  the user with the sudo permission]"
+	echo "file getinfo <file-name>                     [To get info about a file/dir]"
+	echo "file getinfo --size <filename>               [To get info about file/dir size only]"
+	echo "file getInfo --last-modififed <fileName>     [To get info about the last time of file/dir modification]"
+	echo "file getInfo --owner <fileName>              [To get info about the owner of file/dir]"
+	echo "file getInfo --permission <fileName>         [To get info about the permission given to file/dir]"
+	echo "file getInfo <filename>                      [To get info about the name, access, size, owner of file/dir]"
+
 	# The above command is used to get help about our command.
 fi
