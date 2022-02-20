@@ -1,35 +1,53 @@
 #!/bin/bash
 if [ "$1"  == "cpu" ] && [ "$2"  == "getinfo" ]
-then
-	lscpu
+then 
+	lscpu # This command is designed to get get info about cpu usage.
 
 elif [ "$1"  == "memory" ] && [ "$2"  == "getinfo" ]
 then
-	free
+	free # This command is designed to check free space on the disk.
 	
 elif [ "$1" == "user" ] && [ "$2" == "list" ] && [ "$3" == "--sudo-only" ]
 then 
-	getent group sudo
+	getent group sudo # This command is designed to get the list of sudo users.
 	
 elif [ "$1" == "user" ] && [ "$2" == "create" ] && [ "$3" ]
 then
-	useradd "$3"
+	useradd "$3" #This command is designed to create new user
 
 elif [ "$1" == "user" ] && [ "$2" == "list" ]
 then 
-	getent passwd 
+	getent passwd # This command is designed to get the list of all users.
+
+elif [ "$1" == "file" ] && [ "$2" == "getinfo" ] && ( [ "$3" == "--size" ] || [ "$3" == "-s" ] ) && [ "$4" ] 
+then 
+	wc -c < $4 #This command is designed to check  size of file/dir only.
+
+elif [ "$1" == "file" ] && [ "$2" == "getinfo" ] && ( [ "$3" == "--permission" ] || [ "$3" == "-p" ] ) && [ "$4" ] 
+then 
+	ls -ld $4 |awk '{ print $1; }'	#This command is designed to check the permission on file/dir.
+	
+elif [ "$1" == "file" ] && [ "$2" == "getinfo" ] && ( [ "$3" == "--owner" ] || [ "$3" == "-o" ] ) && [ "$4" ] 
+then 
+	stat -c '%U' $4 #This command is designed to check the owner of file/dir
+
+elif [ "$1" == "file" ] && [ "$2" == "getinfo" ] && ( [ "$3" == "--last-modified" ] || [ "$3" == "-m" ] ) && [ "$4" ] 
+then 	
+	stat -c '%y' $4 #This command is designed to check the last modification of file.
 
 elif [ "$1" == "file" ] && [ "$2" == "getinfo" ] && [ "$3" ]
 then 
-echo "Filename: $(ls -l "$3" | awk '{print $9}')"  
-echo "Access  : $(ls -l "$3" | awk '{print $1}')"
-echo "Size    : $(du -sh $3  | awk '{print $1}')"
-echo "Owner   : $(ls -l "$3" | awk '{print $4}')"
+    echo "Filename: $(ls -l "$3" | awk '{print $9}')"  # This command is designed to get the file name.
+    echo "Access  : $(ls -l "$3" | awk '{print $1}')"  # This command is designed to check the type of permission to this file.
+    echo "Size(B) : $(wc -c < "$3")" # This command is designed to get the size of file in bytes.
+    echo "Owner   : $(ls -l "$3" | awk '{print $2 , $3 , $4}')"  # This command is designed to get the name of owner of this file.
+
+
 elif [ "$1"  == "--version" ]
 then 
-	echo "Version is : v0.1.0"
+	echo "Version is : v0.1.0" # This command is used to set the version of command of command .
 
-else [ "$1"  == " -- help" ]
+else [ "$1"  == "--help" ]
 	echo "internsctl [OPTION]"
 	echo "--version  -->To check the version of the command"
 	echo "memory getinfo   -->To get memory information"
@@ -37,4 +55,6 @@ else [ "$1"  == " -- help" ]
 	echo " user list  --> To check the user present on the server"
 	echo " user list --sudo-only  --> To check  the user with the sudo permission"
 	echo "file getinfo <file-name>  -->To get info about a file"
+    
+	# The above command is used to get help about our command.
 fi
